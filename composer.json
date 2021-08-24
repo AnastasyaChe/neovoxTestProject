@@ -1,0 +1,17 @@
+{
+    "name": "anastasya/netvox.local",
+    "authors": [
+        {
+            "name": "AnastasyaChe",
+            "email": "bepin@yandex.ru"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    }
+}
