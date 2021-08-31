@@ -2,8 +2,6 @@
 
 namespace app\services;
 
-use app\traits\SingletonTrait;
-
 class Db
 {
     public $config;
@@ -20,7 +18,7 @@ class Db
         ];
     }
 
-    
+
     private $connection = null;
 
     protected function getConnection()
@@ -34,8 +32,8 @@ class Db
 
             $this->connection->setAttribute(
                 \PDO::ATTR_DEFAULT_FETCH_MODE,
-                \PDO::FETCH_ASSOC, 
-                
+                \PDO::FETCH_ASSOC,
+
             );
         }
 
@@ -44,13 +42,28 @@ class Db
     }
 
 
-   
+
+
+    /**
+     * query
+     *
+     * @param  mixed $sql
+     * @param  mixed $params
+     * @return object
+     */
     private function query(string $sql, array $params = [])
     {
         $pdoStatement = $this->getConnection()->prepare($sql);
         $pdoStatement->execute($params);
         return $pdoStatement;
     }
+    /**
+     * searchQuery
+     *
+     * @param  mixed $sql
+     * @param  mixed $params
+     * @return object
+     */
     private function searchQuery(string $sql, array $params = [])
     {
         $pdoStatement = $this->getConnection()->prepare($sql);
@@ -58,15 +71,31 @@ class Db
         return $pdoStatement;
     }
 
+    /**
+     * queryOne
+     *
+     * @param  mixed $sql
+     * @param  mixed $params
+     * @param  mixed $className
+     * @return array
+     */
     public function queryOne(string $sql, array $params = [], string $className = null)
     {
-        return $this->queryAll( $sql,  $params, $className)[0];
+        return $this->queryAll($sql,  $params, $className)[0];
     }
 
+    /**
+     * queryAll
+     *
+     * @param  mixed $sql
+     * @param  mixed $params
+     * @param  mixed $className
+     * @return object
+     */
     public function queryAll(string $sql, array $params = [], string $className = null)
     {
         $pdoStatement = $this->query($sql,  $params);
-        if(isset($className)) {
+        if (isset($className)) {
             $pdoStatement->setFetchMode(
                 \PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE,
                 $className
@@ -74,9 +103,18 @@ class Db
         }
         return $pdoStatement->fetchAll();
     }
-    public function querySearch($sql, array $params, string $className = null) {
+    /**
+     * querySearch
+     *
+     * @param  mixed $sql
+     * @param  mixed $params
+     * @param  mixed $className
+     * @return object
+     */
+    public function querySearch($sql, array $params, string $className = null)
+    {
         $pdoStatement = $this->searchQuery($sql,  $params);
-        if(isset($className)) {
+        if (isset($className)) {
             $pdoStatement->setFetchMode(
                 \PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE,
                 $className
@@ -85,11 +123,23 @@ class Db
         return $pdoStatement->fetchAll();
     }
 
-    public function execute(string $sql, array $params = []) : int
+    /**
+     * execute
+     *
+     * @param  mixed $sql
+     * @param  mixed $params
+     * @return int
+     */
+    public function execute(string $sql, array $params = []): int
     {
         return $this->query($sql, $params)->rowCount();
     }
 
+    /**
+     * getLastInsertId
+     *
+     * @return int
+     */
     public function getLastInsertId()
     {
         return $this->getConnection()->lastInsertId();

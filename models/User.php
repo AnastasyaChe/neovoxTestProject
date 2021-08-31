@@ -9,5 +9,8 @@ class User extends Record
     public $date;
     public $text;
     public $ip;
-    public $browser;
+    public $browse;
+    public $images;
+    public $user_id;
+
 }

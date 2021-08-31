@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'root_dir' => realpath( __DIR__ . '/../') . "/",
-    'views_dir' => realpath( __DIR__ . '/../') . "/views/",
-    'vendor_dir' => realpath( __DIR__ . '/../') . "/vendor/",
+    'root_dir' => realpath(__DIR__ . '/../') . "/",
+    'views_dir' => realpath(__DIR__ . '/../') . "/views/",
+    'vendor_dir' => realpath(__DIR__ . '/../') . "/vendor/",
     'default_controller' => 'users',
     'default_page' => '1',
     'controller_namespace' => 'app\controllers\\',

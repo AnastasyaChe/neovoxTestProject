@@ -4,8 +4,18 @@
 namespace app\base;
 
 
+/**
+ * ComponentsFactory
+ */
 class ComponentsFactory
 {
+    /**
+     * createComponent
+     *
+     * @param  mixed $name
+     * @param  mixed $params
+     * @return object
+     */
     public function createComponent($name, $params = [])
     {
         $class = $params['class'];
